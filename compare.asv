@@ -1,0 +1,14 @@
+function compare(mode)
+if mode == 1
+    subplot(2, 1, 1)
+    plot(1:0.5:123, abs(env1)/max(env1)*18, 'g');
+    subplot(2, 1, 2)
+    plot(chnums_1(:, 1), abs(chnums_1(:, 2)));
+elseif mode == 0
+    subplot(2, 1, 1)
+    plot(1:0.5:123, abs(env)/max(env)*18, 'g');
+    subplot(2, 1, 2)
+    plot(chnums(:, 1), abs(chnums(:, 2)));
+else
+    
+end
