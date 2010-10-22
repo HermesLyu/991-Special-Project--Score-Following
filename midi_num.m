@@ -68,7 +68,7 @@ if mode == 3
     end
     Pkval = Pk.*chnumsavg; %peak values
     Pkavg = mean(Pkval(find(Pkval))); %find average of peaks,  ~isnan ignores NaN
-    Pk = Pkval > Pkavg; %save peaks higher than average
+    Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
     Pkval = Pk.*chnumsavg;
 
     %find valleies
@@ -80,7 +80,7 @@ if mode == 3
     end
     Valval = Val.*chnumsavg; %peak values
     Valavg = mean(Valval(find(Valval))); %find average of peaks
-    Val =Val.*(Valval < Valavg); %save peaks higher than average
+    Val =Val.*(Valval < 0.5*Valavg); %save peaks higher than average
     Valval = Val.*chnumsavg;
 
     Allpks = Pkval - Valval; % vallies are negative
