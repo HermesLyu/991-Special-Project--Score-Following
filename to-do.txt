@@ -1,0 +1,2 @@
+seperate findpeak
+unite midi and wave matrix dimension
