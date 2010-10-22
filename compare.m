@@ -7,7 +7,7 @@ if mode == 1
     plot(chnums_1(:, 1), (chnums_1(:, 2)));
 elseif mode == 0
     subplot(2, 1, 1)
-    semilogy(time, abs(wav), 'g');
+    plot(time, abs(wav), 'g');
     %plot(1:0.5:123.5, env/max(env)*18, 'g');
     subplot(2, 1, 2)
     plot(chnums(:, 1), chnums(:, 2));
