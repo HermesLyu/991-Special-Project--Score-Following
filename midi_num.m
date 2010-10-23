@@ -1,7 +1,8 @@
 mode = input('Please select mode(1:vol, 2:onset # 3.hold #):');
 %read wave
 mid = readmidi('k622_I.mid');
-mid = onsetwindow(mid, 43, 55, 'sec');
+mid = settempo(mid, 110); %set tempo to 110BPM which is the default of media players
+mid = onsetwindow(mid, 0, 135, 'sec');
 % for i = (1:size(mid, 1))
 %     if mid(i, 6) > 135
 %         mid1 = mid(1:i-1, :);
