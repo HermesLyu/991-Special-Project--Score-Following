@@ -8,6 +8,7 @@ for i = (1 : fix(size(wav)/step))
 %    envelop(i) = mean(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
     env(i) = max(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
 end
+timerate = 0.5; % 0.5 sec/x
 %env = envelope(wav, time);
 
 % for i = 1:(length(wav)-1)
@@ -19,62 +20,7 @@ env1 = env(2:length(env))-env(1:length(env)-1);
 %env3 = env(4:length(env))-env(1:length(env)-3);
 %env4 = env(5:length(env))-env(1:length(env)-4);
 
-transwav = findtrans(env');
-
-% %find peaks 
-% Pk = zeros(1,length(env));
-% for t = 2:length(env)-1
-%     if  env(t-1) < env(t) && env(t+1) < env(t)
-%             Pk(t) = 1;
-%     end
-% end
-% Pkval = Pk.*env; %peak values
-% Pkavg = mean(Pkval(find(Pkval))); %find average of peaks
-% Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
-% Pkval = Pk.*env;
-% 
-% %find valleies
-% Val = zeros(1,length(env));
-% for t = 2:length(env)-1
-%     if  env(t-1) > env(t) && env(t+1) > env(t)
-%             Val(t) = 1;
-%     end
-% end
-% Valval = Val.*env; %peak values
-% Valavg = mean(Valval(find(Valval))); %find average of peaks
-% Val =Val.*(Valval <0.5*Valavg); %save peaks higher than average
-% Valval = Val.*env;
-% 
-% %find peak and valley diff
-% % Allpks = Pkval+Valval;
-% % [row,col, pks] = find(Allpks);
-% % trh = mean(Pkval(find(Pkval)))- mean(Valval(find(Valval))); % trashold
-% % pks_1 = pks(2:length(pks)) - pks(1:length(pks)-1);
-% Allpks = Pkval - Valval; % vallies are negative
-% [row,col, pks] = find(Allpks);
-% trans = [col; pks*0];
-% j = 0;
-% for i = 1:length(pks)-1
-%     if pks(i+1)*pks(i) < 0
-%         trans(2, i) = abs(pks(i+1))-abs(pks(i)); %transition
-%         j = j+1;
-%     end
-% end
-% trans = trans(:, find(trans(2, :))); %remove zeros from trans
-% 
-% 
-% % subplot(2, 1, 1)
-% % bar(col(1:length(pks_1)), pks_1)
-% % hold on;
-% % plot([1, length(env)], [trh, trh], 'g') %plot the HLavg level
-% % plot([1, length(env)], [ -trh, -trh], 'g')
-% %subplot(2, 1, 2)
-% plot(env)
-% hold on;
-% scatter(find(Pkval), Pkval(find(Pkval)), 'o', 'g') %mark peaks
-% scatter(find(Valval), Valval(find(Valval)), 'o', 'r') %mark valleies
-% bar(trans(1, :), trans(2, :))
-%plot(find(Allpks), Allpks(find(Allpks)), 'y') %plot peak-value outline
+transwav = findtrans(env', timerate);
 
 %plot(time, wav)
 %hold on
