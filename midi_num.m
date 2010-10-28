@@ -59,50 +59,9 @@ if mode == 3
 
     %chnumsval = chnums(:, 2);
     %test 
-    
-    chnumsavg(isnan(chnumsavg)) = 0;
-    Pk = zeros(length(chnumsavg), 1);
-    for t = 2:length(chnumsavg)-1
-        
-            Pk(t) = (chnumsavg(t-1) <= chnumsavg(t)) && (chnumsavg(t+1) < chnumsavg(t));
-       
-    end
-    Pkval = Pk.*chnumsavg; %peak values
-    Pkavg = mean(Pkval(find(Pkval))); %find average of peaks,  ~isnan ignores NaN
-    Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
-    Pkval = Pk.*chnumsavg;
+    transmid = findtrans(chnumsavg);  
 
-    %find valleies
-    Val = zeros(length(chnumsavg), 1);
-    for t = 2:length(chnumsavg)-1
-        if  chnumsavg(t-1) > chnumsavg(t) && chnumsavg(t+1) >= chnumsavg(t)
-            Val(t) = 1;
-        end
-    end
-    Valval = Val.*chnumsavg; %peak values
-    Valavg = mean(Valval(find(Valval))); %find average of peaks
-    Val =Val.*(Valval < 0.5*Valavg); %save peaks higher than average
-    Valval = Val.*chnumsavg;
-
-    Allpks = Pkval - Valval; % vallies are negative
-    [row,col, pks] = find(Allpks);
-    trans = [row, zeros(length(pks), 1)];
-    trans = trans';
-    j = 0;
-    for i = 1:length(pks)-1
-        if pks(i+1)*pks(i) < 0
-            trans(2, i) = abs(pks(i+1))-abs(pks(i)); %transition
-            j = j+1;
-        end
-    end
-    trans = trans(:, find(trans(2, :))); %remove zeros from trans
-
-    plot(chnumsavg)
-    hold on;
-    scatter(find(Pkval), Pkval(find(Pkval)), 'o', 'g') %mark peaks
-    scatter(find(Valval), Valval(find(Valval)), 'o', 'r') %mark valleies
-    bar(trans(1, :), trans(2, :))
- end
+  end
 if mode == 4
     chnums = zeros(floor(max(mid(:, 6)/0.025)+1), 2);
     chnums(:,1) = 0:0.025:floor(max(mid(:, 6))/0.025)*0.025;
