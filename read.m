@@ -8,7 +8,7 @@ for i = (1 : fix(size(wav)/step))
 %    envelop(i) = mean(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
     env(i) = max(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
 end
-timerate = 0.5; % 0.5 sec/x
+timeratewav = 0.5; % 0.5 sec/x
 %env = envelope(wav, time);
 
 % for i = 1:(length(wav)-1)
@@ -20,7 +20,7 @@ env1 = env(2:length(env))-env(1:length(env)-1);
 %env3 = env(4:length(env))-env(1:length(env)-3);
 %env4 = env(5:length(env))-env(1:length(env)-4);
 
-transwav = findtrans(env', timerate);
+transwav = findtrans(env', timeratewav);
 
 %plot(time, wav)
 %hold on

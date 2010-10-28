@@ -38,7 +38,7 @@ end
 
 if mode == 3
     chnums = zeros(floor(max(mid(:, 6)/0.025)+1), 2);
-    timerate = 0.025;
+    timeratemid = 0.025;
     chnums(:,1) = 0:0.025:floor(max(mid(:, 6))/0.025)*0.025;
     for i = 1: length(mid) %all the time index w/ 0.025 step
         onset = floor(mid(i, 6)/0.025)+1; %+1 because matlab index starts at 1
@@ -60,7 +60,7 @@ if mode == 3
 
     %chnumsval = chnums(:, 2);
     %test 
-    transmid = findtrans(chnumsavg, timerate);  
+    transmid = findtrans(chnumsavg, timeratemid);  
 
   end
 if mode == 4
