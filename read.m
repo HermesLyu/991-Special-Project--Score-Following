@@ -28,7 +28,7 @@ for t = 2:length(env)-1
 end
 Pkval = Pk.*env; %peak values
 Pkavg = mean(Pkval(find(Pkval))); %find average of peaks
-Pk = Pkval > Pkavg; %save peaks higher than average
+Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
 Pkval = Pk.*env;
 
 %find valleies
@@ -40,7 +40,7 @@ for t = 2:length(env)-1
 end
 Valval = Val.*env; %peak values
 Valavg = mean(Valval(find(Valval))); %find average of peaks
-Val =Val.*(Valval < Valavg); %save peaks higher than average
+Val =Val.*(Valval <0.5*Valavg); %save peaks higher than average
 Valval = Val.*env;
 
 %find peak and valley diff
