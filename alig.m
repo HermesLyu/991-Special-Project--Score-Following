@@ -1,5 +1,5 @@
 resolution = 0.25; %unit of each pixel in the map. should multiple of 5
-map  = zeros((length(chnumsavg)*timeratemid/resolution), (length(env)*timeratewav/resolution)); %map with midi at y and wav at x,
+map  = zeros((length(chnumsavg)*timeratemid/resolution), (length(env)*timeratewav/resolution)); %map with midi at dim1(y) and wav at dim2(x),
 for x = 1:length(transwav)
     %index = size(map, 1)-round(transwav(1, i)/resolution); %round to int, start from lower left corner
     index = round(transwav(1, x)/resolution);
