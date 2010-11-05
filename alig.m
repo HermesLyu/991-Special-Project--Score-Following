@@ -22,8 +22,12 @@ map1 = (map+2)/4; %shift and normalize for poltting.
 %plot
 imshow(map1,'XData',[0 size(map1,2)*resolution],'YData', [0 size(map1,1)*resolution]); % scale the axis
 set(gca,'YDir','normal') %reverse y-axis
+hold on;
 axis on;
-
+ylabel('midi')
+xlabel('wav')
+scatter(transwav(1, :), transmid(1, :), 'r')
+hold off;
 % p = 0;
 % q = 0;
 % if map(p)

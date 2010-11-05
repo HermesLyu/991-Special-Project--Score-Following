@@ -8,7 +8,7 @@ function trans = findtrans(A, timerate)
     end
     Pkval = Pk.*A; %peak values
     Pkavg = mean(Pkval(find(Pkval))); %find average of peaks,  ~isnan ignores NaN
-    Pk = Pkval > 1*Pkavg; %save peaks higher than average
+    Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
     Pkval = Pk.*A;
 
     %find valleies
@@ -20,7 +20,7 @@ function trans = findtrans(A, timerate)
     end
     Valval = Val.*A; %peak values
     Valavg = mean(Valval(find(Valval))); %find average of peaks
-    Val =Val.*(Valval < 1*Valavg); %save peaks higher than average
+    Val =Val.*(Valval < 0.5*Valavg); %save peaks higher than average
     Valval = Val.*A;
 
     Allpks = Pkval - Valval; % vallies are negative
