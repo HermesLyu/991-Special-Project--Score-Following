@@ -27,6 +27,13 @@ axis on;
 ylabel('midi')
 xlabel('wav')
 scatter(transwav(1, :), transmid(1, :), 'r')
+plot([0, size(map1, 2)], [0, size(map1, 1)])
+
+[row, col] = find(map1 == 1); %mark 1's
+scatter(col*resolution, row*resolution, 'b')
+
+[row, col] = find(map1 == 0); %mark 0's
+scatter(col*resolution, row*resolution, 'g')
 hold off;
 % p = 0;
 % q = 0;
