@@ -7,11 +7,11 @@
 map= zeros(size(DTW, 1), size(DTW, 2), 2);
 transwav2 = transwav(2, :)/max(transwav(2, :));
 transmid2 = transmid(2, :)/max(transmid(2, :));
-    for x = 2:length(transwav)+1; %start from 2,2 because DTW starts with 1, 1
-        for y = 2:length(transmid)+1;
+    for x = 3:length(transwav)+1; %start from 2,2 because DTW starts with 1, 1
+        for y = 3:length(transmid)+1;
             cost = abs(transwav2(x-1) - transmid2(y-1));
-            DTW(y, x) = cost + min([DTW(y-1, x  )*1.4,    % insertion
-                                        DTW(y  , x-1)*1.4,    % deletion
+            DTW(y, x) = cost + min([DTW(y-2, x-1  ),    % insertion
+                                        DTW(y -1 , x-2),    % deletion
                                         DTW(y-1, x-1)]) ;   % match
             [C, I] = min([DTW(y-1, x  ),DTW(y  , x-1),DTW(y-1, x-1)]);
             if I == 1 

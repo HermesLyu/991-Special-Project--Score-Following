@@ -6,5 +6,8 @@
 figure(2)
 subplot(2, 1, 1)
 runmidi
+ylabel('mid')
 subplot(2, 1, 2)
 runwav
+ylabel('wav')
+figure(1)
