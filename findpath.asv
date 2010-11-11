@@ -1,6 +1,15 @@
 function aligment = findpath(x, y, map, aligment)
-x1 = find(map(x+1:end, y), 1, 'first') + x;
-y1 = find(map(x, y+1:end), 1, 'first') + y;
+slope = size(map, 1)/size(map, 2)
+x1 = find(map(y, x+1:end), 1, 'first') + x -1
+if ~isempty(x1)
+    y1 find(map(y+1:end, x1)==2 |find(map(y+1:end, x1)==-2);
+    y1 = I+y-1
+[C, I] = min(y1-x1*slope)
+y1 = I+y -1 % fine y which is below 5% far than middle line
+else
+    return
+end%dim1 >y, dim2 >x
+%y1 = find(map( y+1:end,x), 1, 'first') + y;
     if isempty(x1) | isempty(y1)
       return 
     else

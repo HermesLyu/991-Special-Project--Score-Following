@@ -17,6 +17,7 @@ for y = 1:length(transmid)
         map(index, :) = map(index, :)-1;
     end
 end
+%map(find(map(:, :) == 1)) = 0;
 aligment = [];
 aligment = findpath(1, 1, map, aligment);
 aligment = [[0; 0], aligment];
