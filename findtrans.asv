@@ -1,5 +1,5 @@
 function trans = findtrans(A, timerate)     
-    A(isnan(A)) = 0;
+    A(isnan(A)) = 0; %remove not a number due to moving average
     Pk = zeros(length(A), 1);
     for t = 2:length(A)-1
         
@@ -8,7 +8,7 @@ function trans = findtrans(A, timerate)
     end
     Pkval = Pk.*A; %peak values
     Pkavg = mean(Pkval(find(Pkval))); %find average of peaks,  ~isnan ignores NaN
-    Pk = Pkval > 1.5*Pkavg; %save peaks higher than average
+    Pk = Pkval > 1.2*Pkavg; %save peaks higher than average
     Pkval = Pk.*A;
 
     %find valleies
@@ -20,7 +20,7 @@ function trans = findtrans(A, timerate)
     end
     Valval = Val.*A; %peak values
     Valavg = mean(Valval(find(Valval))); %find average of peaks
-    Val =Val.*(Valval < 0.5*Valavg); %save peaks higher than average
+    Val =Val.*(Valval < 0.7*Valavg); %save peaks higher than average
     Valval = Val.*A;
 
     Allpks = Pkval - Valval; % vallies are negative
@@ -36,9 +36,10 @@ function trans = findtrans(A, timerate)
     end
     trans = trans(:, find(trans(2, :))); %remove zeros from trans
     trans(1, :) = trans(1, :)*timerate; %make the time index into sec
-    plot(A)
+    plot((1:size(A))*timerate, A)
     hold on;
     scatter(find(Pkval)*timerate, Pkval(find(Pkval)), 'o', 'g') %mark peaks
-    scatter(find(Valval)*ti, Valval(find(Valval)), 'o', 'r') %mark valleies
+    scatter(find(Valval)*timerate, Valval(find(Valval)), 'o', 'r') %mark valleies
     bar(trans(1, :), trans(2, :))
+    hold off;
  end

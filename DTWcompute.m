@@ -5,10 +5,11 @@
         DTW(:, 1) = Inf;
     DTW(1, 1) = 0;
 map= zeros(size(DTW, 1), size(DTW, 2), 2);
-
+transwav2 = transwav(2, :)/max(transwav(2, :));
+transmid2 = transmid(2, :)/max(transmid(2, :));
     for x = 2:length(transwav)+1; %start from 2,2 because DTW starts with 1, 1
         for y = 2:length(transmid)+1;
-            cost = abs(transwav(2, x-1) - transmid(2, y-1));
+            cost = abs(transwav2(x-1) - transmid2(y-1));
             DTW(y, x) = cost + min([DTW(y-1, x  )*1.4,    % insertion
                                         DTW(y  , x-1)*1.4,    % deletion
                                         DTW(y-1, x-1)]) ;   % match
