@@ -4,8 +4,10 @@ mode = 3;
 
 %mid = readmidi('k622_I.mid');
 
-mid = settempo(mid, 110); %set tempo to 110BPM which is the default of media players
-mid = onsetwindow(mid, 0, 135, 'sec');
+mid = settempo(mid, 97); %set tempo to 110BPM which is the default of media players
+%mid = onsetwindow(mid, 0, 135, 'sec'); %crop
+%writemidi(mid, 'k622_crop.mid', 120) %save croped
+
 % for i = (1:size(mid, 1))
 %     if mid(i, 6) > 135
 %         mid1 = mid(1:i-1, :);

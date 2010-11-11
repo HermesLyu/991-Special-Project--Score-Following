@@ -22,7 +22,7 @@ aligment = findpath(1, 1, map, aligment);
 aligment = [[0; 0], aligment];
 aligment = aligment.*resolution;
 map1 = (map+2)/4; %shift and normalize for poltting.
-
+aligment
 %plot
 imshow(map1,'XData',[0 size(map1,2)*resolution],'YData', [0 size(map1,1)*resolution]); % scale the axis
 set(gca,'YDir','normal') %reverse y-axis
