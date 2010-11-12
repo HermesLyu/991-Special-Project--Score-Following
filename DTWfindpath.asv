@@ -1,0 +1,8 @@
+function path = DTWfindpath(map, x, y)
+if x == 0 && y ==0
+    return
+else
+path = [[x; y],path;
+DTWfindpath(map, map(x, y, 1),  map(x, y, 2))
+return
+end

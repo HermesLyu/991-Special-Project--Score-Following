@@ -1,0 +1,74 @@
+    %for 
+    DTW = zeros(length(transmid)+3, length(transwav)+3);
+        DTW(1:3, :) = Inf; %boundary
+    %for 
+        DTW(:, 1:3) = Inf;
+    DTW(3, 3) = 0; % starting point
+map= zeros(size(DTW, 1), size(DTW, 2), 2);
+transwav2 = transwav(2, :)/max(transwav(2, :));
+transmid2 = transmid(2, :)/max(transmid(2, :));
+    for x = 4:length(transwav)+1; %start from 4,4 because DTW starts with 1, 1
+        for y = 4:length(transmid)+1;
+            cost = abs(transwav2(x-1) - transmid2(y-1));
+            DTW(y, x) = cost + min([DTW(y-1, x-3  ),
+                                    DTW(y-1, x-2  ),% insertion
+                                    DTW(y-1, x-1  ),    % deletion
+                                    DTW(y-2, x-1  ),
+                                    DTW(y-3, x-1)]) ;   % match
+            [C, I] = min([DTW(y-1, x-3  ),
+                          DTW(y-1, x-2  ),% insertion
+                          DTW(y-1, x-1  ),
+                          DTW(y-2, x-1  ),
+                          DTW(y-3, x-1)]);
+            if I == 1 
+                DTWmap(y, x, 1) = y-1;
+                DTWmap(y, x, 2) = x-3;
+            elseif I == 2
+                DTWmap(y, x, 1) = y-1;
+                DTWmap(y, x, 2) = x-2;
+            elseif I == 3
+                DTWmap(y, x, 1) = y-1;
+                DTWmap(y, x, 2) = x-1;
+            elseif I == 4
+                DTWmap(y, x, 1) = y-2;
+                DTWmap(y, x, 2) = x-1;
+            elseif I == 5
+                DTWmap(y, x, 1) = y-3;
+                DTWmap(y, x, 2) = x-1;
+            end
+   
+        end
+    end
+    DTWmap = DTWmap-3;
+    DTWmap = DTWmap(4:end, 4:end, :);
+    DTW = DTW(4:end, 4:end);
+    DTW(find(isinf(DTW))) = -Inf; % set Inf to -Inf to avoid max to find them as maximum
+    DTW1 = DTW/max(max(DTW)); 
+    DTW1(find(isinf(DTW1))) = 1; % set -Inf to white block
+    imshow(DTW1, 'InitialMagnification', 'fit')
+    set(gca,'YDir','normal')
+    xlabel('wav')
+    ylabel('mid')
+    hold on;
+    
+    bestpath = DTWfindpath(DTWmap, [size(DTWmap, 1); size(DTWmap, 2)]);
+    plot(bestpath(2, :), bestpath(1, :), 'ro-')
+    hold off;
+    for n = 2:length(bestpath) %start from 2 to avoid 0, 0
+        path(1, n) = transmid(1, bestpath(1, n));
+        path(2, n) = transwav(1, bestpath(2, n));
+    end
+    %path = path.*resolution;
+figure(2);
+imshow(map1,'XData',[0 size(map1,2)*resolution],'YData', [0 size(map1,1)*resolution]); % scale the axis
+set(gca,'YDir','normal') %reverse y-axis
+hold on;
+axis on;
+ylabel('midi')
+xlabel('wav')
+plot([0, size(map1, 2)], [0, size(map1, 1)])
+
+plot(path(2, :), path(1, :), 'ro-')
+
+hold off;
+
