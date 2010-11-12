@@ -10,10 +10,9 @@ transmid2 = transmid(2, :)/max(transmid(2, :));
     for x = 4:length(transwav)+1; %start from 4,4 because DTW starts with 1, 1
         for y = 4:length(transmid)+1;
             cost = abs(transwav2(x-1) - transmid2(y-1));
-            DTW(y, x) = cost + min([DTW(y-1, x-1  ),
+            DTW(y, x) = cost + min([DTW(y-1, x-3  ),
                                     DTW(y-1, x-2  ),% insertion
-                                    DTW(y-1, x-3  ),
-                                    DTW(y-1  , x-1),    % deletion
+                                    DTW(y-1, x-1  ),    % deletion
                                     DTW(y-2, x-1  ),
                                     DTW(y-3, x-1)]) ;   % match
             [C, I] = min([DTW(y-1, x-3  ),
@@ -40,12 +39,13 @@ transmid2 = transmid(2, :)/max(transmid(2, :));
    
         end
     end
-    %DTWmap = DTWmap-1;
-    %DTWmap = DTWmap(4:end, 4:end, :);
-    %DTW = DTW(4:end, 4:end);
-    DTW(find(isinf(DTW))) = -Inf; % set Inf to -Inf to avoid max to find them as max
-    DTW1 = DTW/max(max(DTW));
-    DTW(find(isinf(DTW))) = 1;
+    
+    DTWmap = DTWmap-3;
+    DTWmap = DTWmap(4:end, 4:end, :);
+    DTW = DTW(4:end, 4:end);
+    DTW(find(isinf(DTW))) = -Inf; % set Inf to -Inf to avoid max to find them as maximum
+    DTW1 = DTW/max(max(DTW)); 
+    DTW1(find(isinf(DTW1))) = 1; % set -Inf to white block
     imshow(DTW1, 'InitialMagnification', 'fit')
     set(gca,'YDir','normal')
     xlabel('wav')

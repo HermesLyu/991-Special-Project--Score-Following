@@ -42,6 +42,8 @@ plot([0, size(map1, 2)], [0, size(map1, 1)])
 
 %scatter(aligment(2, :), aligment(1, :), 'r')
 plot(aligment(1, :), aligment(2, :), 'ro-')
+plot([0,150], [0, 150]*slope-size(map, 2)*0.01, 'r')
+plot([0,150], [0, 150]*slope+size(map, 2)*0.01, 'r')
 
 hold off;
 % p = 0;

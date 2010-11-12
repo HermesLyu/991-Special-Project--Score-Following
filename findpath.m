@@ -6,7 +6,7 @@ if ~isempty(x1)
     y2 = find(abs(map(y+1:end, x1))==2)+y;
     [C, I] = min(abs(y2-x1*slope));
      C/x1*slope
-    if C > size(map, 2)*0.03 %max error from match point to middle line
+    if C > size(map, 2)*0.01 %max error from match point to middle line
         aligment = [findpath(x1+1, y, map, aligment)];
     else
     y1 =y2(I); 
