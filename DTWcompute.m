@@ -38,7 +38,15 @@ transmid2 = transmid(2, :)/max(transmid(2, :));
     ylabel('mid')
     hold on;
     
-    bestpath = DTWfindpath(DTWmap, [size(DTWmap, 1); size(DTWmap, 2)-1]);
+    bestpath = DTWfindpath(DTWmap, [size(DTWmap, 1); size(DTWmap, 2)]);
+    m = 2;
+    while m  < length(bestpath)   %remove insertion and deletion points
+        if bestpath(1,m) == bestpath(1,(m-1)) | bestpath(2,m) == bestpath(2,(m-1))
+            bestpath(:, m) = [];
+        else
+            m = m+1;
+        end
+    end
     plot(bestpath(2, :), bestpath(1, :), 'ro-')
     hold off;
     for n = 2:length(bestpath) %start from 2 to avoid 0, 0
