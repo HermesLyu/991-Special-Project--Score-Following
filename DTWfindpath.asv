@@ -1,8 +1,12 @@
-function path = DTWfindpath(map, x, y)
-if x == 0 && y ==0
+function bestpath = DTWfindpath(DTWmap, bestpath)
+x = DTWmap(bestpath(1),bestpath(2), 1)
+y = DTWmap(bestpath(1), bestpath(2), 2)
+
+if x <1 | y <1
+    bestpath = [[0; 0],bestpath];
     return
 else
-path = [[x; y],path;
-DTWfindpath(map, map(x, y, 1),  map(x, y, 2))
+    bestpath = [ DTWfindpath(DTWmap, [x; y]), [bestpath(1); bestpath(2)]];
+    %DTWfindpath(DTWDTWmap, [x; y]);
 return
 end

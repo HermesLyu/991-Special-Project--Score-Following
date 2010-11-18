@@ -54,6 +54,7 @@ transmid2 = transmid(2, :)/max(transmid(2, :));
         path(2, n) = transwav(1, bestpath(2, n));
     end
     %path = path.*resolution;
+    path %output path
 figure(2);
 imshow(map1,'XData',[0 size(map1,2)*resolution],'YData', [0 size(map1,1)*resolution]); % scale the axis
 set(gca,'YDir','normal') %reverse y-axis
@@ -66,4 +67,3 @@ plot([0, size(map1, 2)], [0, size(map1, 1)])
 plot(path(2, :), path(1, :), 'ro-')
 
 hold off;
-
