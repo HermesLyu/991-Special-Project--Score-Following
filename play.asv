@@ -1,0 +1,10 @@
+t = 0;
+while t < max(mid(:, 6))
+tempmid = onsetwindow(mid, t, t+50);
+tempmid = tempmid()
+figure
+pianoroll(onsetwindow(mid, t, t+50), 'sec')
+axis tight
+t = t+50;
+pause(0.5); %pause for 0.5 sec
+end
