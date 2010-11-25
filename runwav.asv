@@ -3,13 +3,13 @@
 wav = mean(wav, 2); %stereo to mono
 %wav = wav(1:size(wav, 1)/2);
 time = (1:length(wav))/fs;
-step = 0.5*fs; %.5sec step
-%env = zeros(1,fix(size(wav)/step));
+step = 0.1*fs; %.5sec step
+env  = fix(size(wav)/step)
 for i = (1 : fix(size(wav)/step))
 %    envelop(i) = mean(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
     env(i) = max(abs(wav((i-1)*step+1:(i*step)))); %take the mean inside steps
 end
-timeratewav = 0.5; % 0.5 sec/x
+timeratewav = 0.1; % 0.5 sec/x
 %env = envelope(wav, time);
 
 % for i = 1:(length(wav)-1)

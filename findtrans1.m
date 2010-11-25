@@ -62,7 +62,7 @@ ylabel('real')
 %    scatter(find(Valval)*timerate, Valval(find(Valval)), 'o', 'r') %mark valleies
 %    bar(trans(1, :), trans(2, :))
     subplot(2, 1, 2)
-    plot((1:size(diff15))*timerate, diff15)
+    plot((1:size(diff3))*timerate, diff3)
     ylabel('diff3')
 
  end
