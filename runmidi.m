@@ -65,7 +65,7 @@ if mode == 3
 
     %chnumsval = chnums(:, 2);
     %test 
-    transmid = findtrans(chnumsavg, timeratemid);  
+    transmid = findtrans1(chnumsavg, timeratemid);  %find transitions
 
   end
 if mode == 4
