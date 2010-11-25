@@ -9,7 +9,7 @@ function trans = findtrans1(A, timerate)
     diff = zeros(length(A), 1);
     for t = n+1:length(A)-n
         
-           diff(t) = mean(A(t:t+n))-mean(A(t-n:t));
+           diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(t-n:t).^2));
        
     end
     end
