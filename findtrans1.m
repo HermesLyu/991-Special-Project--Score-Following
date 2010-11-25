@@ -4,7 +4,8 @@ function trans = findtrans1(A, timerate)
     
     
     leng = length(A);
-    function diff = diffn(leng, n)
+    function diff = diffn(n, timerate, leng)
+        n = floor(n/timerate);
     diff = zeros(length(A), 1);
     for t = n+1:length(A)-n
         
@@ -13,14 +14,16 @@ function trans = findtrans1(A, timerate)
     end
     end
     
-    diff1 = diffn(leng, 1);
-    diff2 = diffn(leng, 2);
-    diff3 = diffn(leng, 3);
-    diff4 = diffn(leng, 4);
-    diff5 = diffn(leng, 5);
-    diff6 = diffn(leng, 6);
-    diff7 = diffn(leng, 7);
-    diff15 = diffn(leng, 15);
+    %dynamically choose diff order
+    
+%     diff1 = diffn(leng, 1);
+%     diff2 = diffn(leng, 2);
+%     diff3 = diffn(leng, 3);
+%     diff4 = diffn(leng, 4);
+%     diff5 = diffn(leng, 5);
+%     diff6 = diffn(leng, 6);
+%     diff7 = diffn(leng, 7);
+%     diff15 = diffn(leng, 15);
 %     
 %     Pkval = Pk.*A; %peak values
 %     Pkavg = mean(Pkval(find(Pkval))); %find average of peaks,  ~isnan ignores NaN
@@ -52,7 +55,7 @@ function trans = findtrans1(A, timerate)
 %     end
 %    trans = trans(:, find(trans(2, :))); %remove zeros from trans
 %    trans(1, :) = trans(1, :)*timerate; %make the time index into sec
-trans = diff3;
+trans = [];
 
 subplot(2, 1, 1)   
 plot((1:size(A))*timerate, A)
@@ -60,9 +63,15 @@ ylabel('real')
 
 %    scatter(find(Pkval)*timerate, Pkval(find(Pkval)), 'o', 'g') %mark peaks
 %    scatter(find(Valval)*timerate, Valval(find(Valval)), 'o', 'r') %mark valleies
-%    bar(trans(1, :), trans(2, :))
-    subplot(2, 1, 2)
-    plot((1:size(diff3))*timerate, diff3)
-    ylabel('diff3')
-
+%    bar(trans(1, :), trans(2, :)
+%     subplot(2, 1, 2)
+%     plot((1:size(diff3))*timerate, diff3)
+%     ylabel('diff3')
+%     figure
+    for m = 1:6
+    subplot(3, 2, m)
+    mm = m/2;
+    plot(1:size(diffn(mm, timerate, leng)), diffn(mm, timerate, leng))
+    ylabel(mm)
+    end
  end
