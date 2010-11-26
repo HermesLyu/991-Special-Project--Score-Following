@@ -5,15 +5,45 @@ function trans = findtrans1(A, timerate)
     
     leng = length(A);
     function diff = diffn(n, timerate, leng)
-        n = floor(n/timerate);
+        n = floor(n/timerate); %normalize the time from sec to actual data index
     diff = zeros(length(A), 1);
     for t = n+1:length(A)-n
         
-           diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(t-n:t).^2));
+           diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(t-n:t).^2)); %diff of consequtive windows(RMS within window)
        
     end
     end
     
+    diff2 = diffn(2, timerate, leng);
+     Val = zeros(length(A), 1);
+    for t = 2:length(A)-1
+        if  diff2(t-1) > diff2(t) && diff2(t+1) >= diff2(t) && diff2(t) < 0
+            Val(t) = 1;
+        end
+    end
+    Valval = Val.*diff2; %peak values
+
+    Valavg = mean(Valval(find(Valval))); %find average of peaks
+    Val =Val.*(Valval < 2*Valavg); %save peaks higher than average
+    Valval = Val.*diff2;
+    
+%     Valavg = mean(Valval(find(Valval))); %find average of peaks
+%     Val =Val.*(Valval < 0.6*min(Valval)); %save peaks higher than average
+%     Valval = Val.*diff2;    
+    
+    [row,col, pks] = find(Valval);
+    trans = [row*timerate, pks];
+    trans = trans';
+    m = 1;
+    while m < length(trans)
+        if trans(1, m+1)-trans(1, m) < 1
+            trans(:, m+1) = [];
+            %if removed m holds
+        else
+            m = m+1;
+        end
+       
+    end
     %dynamically choose diff order
     
 %     diff1 = diffn(leng, 1);
@@ -55,7 +85,6 @@ function trans = findtrans1(A, timerate)
 %     end
 %    trans = trans(:, find(trans(2, :))); %remove zeros from trans
 %    trans(1, :) = trans(1, :)*timerate; %make the time index into sec
-trans = [];
 
 subplot(2, 1, 1)   
 plot((1:size(A))*timerate, A)
@@ -64,14 +93,17 @@ ylabel('real')
 %    scatter(find(Pkval)*timerate, Pkval(find(Pkval)), 'o', 'g') %mark peaks
 %    scatter(find(Valval)*timerate, Valval(find(Valval)), 'o', 'r') %mark valleies
 %    bar(trans(1, :), trans(2, :)
-%     subplot(2, 1, 2)
-%     plot((1:size(diff3))*timerate, diff3)
-%     ylabel('diff3')
-%     figure
-    for m = 1:6
-    subplot(3, 2, m)
-    mm = m/2;
-    plot(1:size(diffn(mm, timerate, leng)), diffn(mm, timerate, leng))
-    ylabel(mm)
-    end
+     subplot(2, 1, 2)
+     plot((1:size(diff2))*timerate, diff2)
+     ylabel('diff2')
+     hold on
+     scatter(trans(1, :), trans(2, :), 'o', 'r') %mark valleies
+     hold off
+%     for m = 1:6
+%     subplot(3, 2, m)
+%     mm = m/2;
+%     plot(1:size(diffn(mm, timerate, leng)), diffn(mm, timerate, leng))
+%     ylabel(mm)
+% 
+%     end
  end
