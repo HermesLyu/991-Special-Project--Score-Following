@@ -1,4 +1,5 @@
-file = 'K622';
+%file = 'K622';
+file = 'eroica';
 mid = readmidi([file '.mid']);
 runmidi
 
