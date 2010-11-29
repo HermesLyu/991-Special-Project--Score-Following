@@ -7,10 +7,14 @@ function trans = findtrans1(A, timerate)
     function diff = diffn(n, timerate, leng)
         n = floor(n/timerate); %normalize the time from sec to actual data index
     diff = zeros(length(A), 1);
-    for t = n+1:length(A)-n
-        
-           diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(t-n:t).^2)); %diff of consequtive windows(RMS within window)
-       
+    for t = 1:length(A)
+        if (t-n)<1 %shrink window if the index exceed the A dimention
+            diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(1:t).^2));
+        elseif (t+n)> length(A)
+            diff(t) = sqrt(mean(A(t:end).^2))-sqrt(mean(A(t-n:t).^2)); %diff of consequtive windows(RMS within window)
+        else
+            diff(t) = sqrt(mean(A(t:t+n).^2))-sqrt(mean(A(t-n:t).^2)); %diff of consequtive windows(RMS within window)
+        end
     end
     end
     
@@ -99,11 +103,13 @@ ylabel('real')
      hold on
      scatter(trans(1, :), trans(2, :), 'o', 'r') %mark valleies
      hold off
+   
+%     %test to show 6 different level of diffn
+%     figure
 %     for m = 1:6
 %     subplot(3, 2, m)
 %     mm = m/2;
 %     plot(1:size(diffn(mm, timerate, leng)), diffn(mm, timerate, leng))
 %     ylabel(mm)
-% 
 %     end
  end
