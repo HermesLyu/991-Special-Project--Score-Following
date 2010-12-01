@@ -15,31 +15,31 @@ mid = settempo(mid, 97); %set tempo to 110BPM which is the default of media play
 %     end
 % end
 
-if mode == 1 %vol
-    vol = movewindow(mid,1,1,'sec', 'velocity','mean'); %moving window to get 
-    vol_1 = vol(2:length(vol)) - vol(1:length(vol)-1);
-% i=1;
-% THIS = mid(i, :); %current note
-% NEXT = mid(i+1, :); %next note
-% while NEXT <> null
-%     while NEXT == THIS
-%     end
+% if mode == 1 %vol
+%     vol = movewindow(mid,1,1,'sec', 'velocity','mean'); %moving window to get 
+%     vol_1 = vol(2:length(vol)) - vol(1:length(vol)-1);
+% % i=1;
+% % THIS = mid(i, :); %current note
+% % NEXT = mid(i+1, :); %next note
+% % while NEXT <> null
+% %     while NEXT == THIS
+% %     end
+% % end
 % end
-end
-
-if mode == 2 %onset numbers
-    i = 1;
-    while i<= length(mid)
-        nums = find(mid(:, 6)==mid(i, 6)); %find all the notes w/ same onset time as i
-        chnums(i, :) = [mid(i, 6), length(nums)];% [time, # of notes]
-        i=i+length(nums);
-    end
-    %chnums = sort(chnums);
-    chnums(find(chnums(:, 2) == 0), :) = []; %removing zero rows
-    plot(chnums(:, 1), chnums(:, 2))   
-
-    chnums_1 = [chnums(2:length(chnums), 1), chnums(2:length(chnums), 2)-chnums(1:length(chnums)-1, 2)]; %first difference
-end
+% 
+% if mode == 2 %onset numbers
+%     i = 1;
+%     while i<= length(mid)
+%         nums = find(mid(:, 6)==mid(i, 6)); %find all the notes w/ same onset time as i
+%         chnums(i, :) = [mid(i, 6), length(nums)];% [time, # of notes]
+%         i=i+length(nums);
+%     end
+%     %chnums = sort(chnums);
+%     chnums(find(chnums(:, 2) == 0), :) = []; %removing zero rows
+%     plot(chnums(:, 1), chnums(:, 2))   
+% 
+%     %chnums_1 = [chnums(2:length(chnums), 1), chnums(2:length(chnums), 2)-chnums(1:length(chnums)-1, 2)]; %first difference
+% end
 
 if mode == 3
     chnums = zeros(floor(max(mid(:, 6)/0.025)+1), 2);
@@ -58,10 +58,16 @@ if mode == 3
     %chnums(find(chnums(:, 2) == 0), :) = []; %removing zero rows
     %plot(chnums(:, 1), chnums(:, 2), 'g')   
     %chnums(:, 2) = smooth(chnums(:, 2), 'moving'); %moving average
-    chnumsavg = tsmovavg(chnums(:, 2), 's', 30, 1);
-    chnumsavg_1 =  chnumsavg(2:length(chnumsavg))-chnumsavg(1:length(chnumsavg)-1);
-    chnumsavg_5 =  chnumsavg(6:length(chnumsavg))-chnumsavg(1:length(chnumsavg)-5);
-    chnums_1 = [chnums(2:length(chnums), 1), chnums(2:length(chnums), 2)-chnums(1:length(chnums)-1, 2)]; %first difference
+
+    chnumsavg = tsmovavg(chnums(:, 2), 's', 60, 1);
+%     chnumsmed = movmedian(chnums(:, 2), 60);
+%     plot(chnumsavg, 'g')
+%     hold on
+%     plot(chnumsmed, 'r')
+    %clear chnums;
+    %chnumsavg_1 =  chnumsavg(2:length(chnumsavg))-chnumsavg(1:length(chnumsavg)-1);
+    %chnumsavg_5 =  chnumsavg(6:length(chnumsavg))-chnumsavg(1:length(chnumsavg)-5);
+    %chnums_1 = [chnums(2:length(chnums), 1), chnums(2:length(chnums), 2)-chnums(1:length(chnums)-1, 2)]; %first difference
 
     %chnumsval = chnums(:, 2);
     %test 
