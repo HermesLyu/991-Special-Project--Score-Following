@@ -18,7 +18,7 @@ if t < midlength
          set(obj,'UserData',ud);
     else
          seg = seg+1;
-         ud.seg = seg;
+         ud.seg
         t = path(2, seg); %meet speed change point
         tmid = path(1, seg);
         axis([tmid-10 tmid+10 30 95])

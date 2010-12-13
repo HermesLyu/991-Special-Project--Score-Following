@@ -14,13 +14,13 @@ speed = speedtemp(1, :)/speedtemp(2, :); %find the speed (mid/wav = tmid/t) for 
 midlength = max(mid(:, 6));
 
 
-ud = struct('t', 0, 'tmid', 0,  'step',1, 'seg', 1, 'speed', speed, 'midlength', midlength) ;
+ud = struct('t', 0, 'tmid', 0,  'step',1, 'seg', 1, 'speed', speed, 'midlength', midlength, 'path', path) ;
 
 
 
 t = 0;
-tim = timer('ExecutionMode','fixedRate', 'BusyMode','drop','Period',1,'TimerFcn', 'showscore')
-set(tim,'UserData',ud);
+tim = timer('ExecutionMode','fixedRate', 'BusyMode','drop','Period',1,'TimerFcn',@showscore ,'UserData',ud)
+% set(tim,'UserData',ud);
 %set(tim,'ExecutionMode','fixedRate','BusyMode','drop','Period',1, 'TimerFcn', display(t); t = t+1);
 % while t < max(mid(:, 6))
 %     if path(2, seg) <= t < path(2, seg+1)
