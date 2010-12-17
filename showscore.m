@@ -23,7 +23,7 @@ if t < midlength
         tmid = path(1, seg);
         axis([tmid-10 tmid+10 30 95])
          ud.tmid = tmid + step*speed(seg);
-         ud.t = t + step;
+         ud.t = t + step;;
          set(obj,'UserData',ud);
     end
 %pause(step); %pause for 0.5 sec

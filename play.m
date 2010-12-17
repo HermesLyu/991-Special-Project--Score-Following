@@ -9,8 +9,8 @@
 pianoroll(mid, 'sec')
 
 %wavplay(wav, fs) %play the wave
-speedtemp = path(:, 1:end-1)-path(:, 2:end); %diff
-speed = speedtemp(1, :)/speedtemp(2, :); %find the speed (mid/wav = tmid/t) for each segment
+speedtemp = path(:, 1:end-1)-path(:, 2:end) %diff
+speed = speedtemp(1, :)./speedtemp(2, :) %find the speed (mid/wav = tmid/t) for each segment
 midlength = max(mid(:, 6));
 
 
