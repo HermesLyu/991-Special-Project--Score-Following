@@ -9,9 +9,14 @@
 pianoroll(mid, 'sec')
 
 %wavplay(wav, fs) %play the wave
+wavlength = length(wav)/fs;
+midlength = max(mid(:, 6)); % length of midi in sec
+path
+path = [path, [midlength; wavlength]]
 speedtemp = path(:, 1:end-1)-path(:, 2:end) %diff
+%speedtemp = [speedtemp, [wavlength; midlength]];
 speed = speedtemp(1, :)./speedtemp(2, :) %find the speed (mid/wav = tmid/t) for each segment
-midlength = max(mid(:, 6));
+
 
 
 ud = struct('t', 0, 'tmid', 0,  'step',1, 'seg', 1, 'speed', speed, 'midlength', midlength, 'path', path) ;
@@ -46,4 +51,4 @@ tim = timer('ExecutionMode','fixedRate', 'BusyMode','drop','Period',1,'TimerFcn'
 
 
 
-start(tim);
+%start(tim);

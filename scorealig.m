@@ -1,3 +1,4 @@
+clear
 file = 'K622';
 mid = readmidi([file '.mid']);
 runmidi

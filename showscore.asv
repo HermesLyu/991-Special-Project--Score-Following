@@ -9,6 +9,7 @@ ud=obj.UserData;
     midlength = ud.midlength;
     path = ud.path;   
 if t < midlength
+    if seg < length(speed)
     if path(2, seg) <= t && t < path(2, seg+1) %during const speed period
         axis([tmid-10 tmid+10 30 95])
         %patch([tmid-10 tmid+10 tmid+10 tmid-10], [95 95 30 30], 'g') %draw the middle square
@@ -16,14 +17,14 @@ if t < midlength
          ud.tmid = tmid + step*speed(seg);
          ud.t = t + step;
          set(obj,'UserData',ud);
-    else
+    else  
          seg = seg+1;
-         ud.seg
+         ud.seg = seg;
         t = path(2, seg); %meet speed change point
         tmid = path(1, seg);
         axis([tmid-10 tmid+10 30 95])
          ud.tmid = tmid + step*speed(seg);
-         ud.t = t + step;
+         ud.t = t + step;;
          set(obj,'UserData',ud);
     end
 %pause(step); %pause for 0.5 sec
