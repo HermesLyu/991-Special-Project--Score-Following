@@ -1,4 +1,5 @@
-function smoothed = movmedian(input, winsize)
+function smoothed = movmedian(input, timerate, winsize)
+    winsize = floor(winsize/timerate); %normalize the time from sec to actual data index
     len = length(input);
     smoothed = zeros(1, len);
     if mod(winsize, 2) == 1

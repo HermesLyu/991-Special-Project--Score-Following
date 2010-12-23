@@ -39,7 +39,7 @@ function trans = findtrans1(A, timerate)
     trans = [row*timerate, pks];
     trans = trans';
     m = 1;
-    while m < length(trans)
+    while m+1 < length(trans)
         if trans(1, m+1)-trans(1, m) < 1 %remove peaks that are too close in time (1sec)
             trans(:, m+1) = [];
             %if removed m holds
