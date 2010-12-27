@@ -33,6 +33,7 @@ transmid2 = transmid(1, :)/max(transmid(1, :));
     DTW = DTW(2:end, 2:end);
     DTW1 = DTW/max(max(DTW));
     imshow(DTW1, 'InitialMagnification', 'fit')
+    %contour(DTW1)
     set(gca,'YDir','normal')
     xlabel('wav')
     ylabel('mid')
@@ -57,6 +58,7 @@ transmid2 = transmid(1, :)/max(transmid(1, :));
     path %output path
 figure(2);
 imshow(map1,'XData',[0 size(map1,2)*resolution],'YData', [0 size(map1,1)*resolution]); % scale the axis
+%contour(map1);
 set(gca,'YDir','normal') %reverse y-axis
 hold on;
 axis on;
