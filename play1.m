@@ -2,6 +2,7 @@ pianoroll(mid, 'sec')
 pause(3);
 %wavplay(wav, fs) %play the wave
 wavlength = length(wav)/fs;
+clear wav
 midlength = max(mid(:, 6)); % length of midi in sec
 
 speedtemp = path(:, 1:end-1)-path(:, 2:end) %diff
