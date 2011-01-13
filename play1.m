@@ -14,7 +14,7 @@ tmid = 0;
 step = 0.5;
 seg = 1;
 mov = [];
-while tmid < midlength/4
+while tmid < midlength
     if seg < length(speed)
        if path(2, seg) <= t && t < path(2, seg+1) %during const speed period
           axis([tmid-10 tmid+10 30 95])
