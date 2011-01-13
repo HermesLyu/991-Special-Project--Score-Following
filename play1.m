@@ -1,17 +1,16 @@
 pianoroll(mid, 'sec')
-
+pause(3);
 %wavplay(wav, fs) %play the wave
 wavlength = length(wav)/fs;
 midlength = max(mid(:, 6)); % length of midi in sec
-path
-path = [path, [midlength; wavlength]]
+
 speedtemp = path(:, 1:end-1)-path(:, 2:end) %diff
 %speedtemp = [speedtemp, [wavlength; midlength]];
 speed = speedtemp(1, :)./speedtemp(2, :) 
 
 t = 0;
 tmid = 0;
-step = 0.5;
+step = 0.1;
 seg = 1;
 mov = [];
 while tmid < midlength
@@ -44,5 +43,5 @@ while tmid < midlength
 %pause(step); %pause for 0.5 sec
 
 end
-movie(mov, 1, 1/step)
+%movie(mov, 1, 1/step)
 movie2avi(mov, 'movie.avi', 'fps', 1/step)
